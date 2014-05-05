@@ -1,0 +1,188 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="http://www.goodhempnutrition.com/img/cms/icons/gym_1.png">
+
+    <title>GymTrack</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href='http://fonts.googleapis.com/css?family=Crete+Round' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Arvo' rel='stylesheet' type='text/css'>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <!-- AngularJS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.0rc3/angular-resource.js"></script>
+
+    <script src="js/controllers/registration.js"></script>
+
+
+    <style type="text/css">
+      body {
+        background-color: #06266f;
+        font-family: 'Arvo', serif;
+      }
+
+      #gym-icon {
+        margin-top: 7rem;
+        margin-left: 13rem;
+      }
+
+      #logo-title {
+        font-size: 14rem;
+        margin-top: 5rem;
+        color: #4671d5;
+        font-family: 'Crete Round', serif;
+      }
+
+      #registration-forms {
+        margin-top: 5rem;
+        color: #4671d5;
+      }
+
+      #login-form, #registration-form {
+        padding:5rem;
+        /*border: 1px solid;
+        border-color:#4671d5;*/
+        text-align: center;
+      }
+
+      #login-form > input, button{
+        width: 26rem;
+        padding: 0.5rem;
+        margin-bottom: 2rem;
+
+      }
+
+      #registration-form > input, button {
+      	width: 26rem;
+        padding: 0.5rem;
+        margin-bottom: 2rem;
+      }
+
+      #login-form > button, #registration-form > button {
+        background-color: #4671d5;
+        border-color: #4671d5;
+        margin-top:2rem;
+        margin-bottom: 2rem;
+        color:#06266f;
+      }
+
+      ::-webkit-input-placeholder {
+        color: #4671d5;
+      }
+
+      ::-moz-placeholder {
+        color: #4671d5;
+      }
+
+      :-moz-placeholder {
+        color: #4671d5;
+      }
+
+	.masthead {
+		  margin-top:11rem;
+		  margin-right: 4rem;
+		}
+
+		      .masthead-brand {
+		  margin-top: 10px;
+		  margin-bottom: 10px;
+		}
+
+		.masthead-nav > li {
+		  display: inline-block;
+
+		}
+		.masthead-nav > li + li {
+		  margin-left: 20px;
+		}
+		.masthead-nav > li > a {
+		  padding-right: 0;
+		  padding-left: 0;
+		  font-size: 16px;
+		  color: #fff; /* IE8 proofing */
+		  color: rgba(255,255,255,.75);
+		  border-bottom: 2px solid transparent;
+		}
+		.masthead-nav > li > a:hover,
+		.masthead-nav > li > a:focus {
+		  background-color: transparent;
+		  border-bottom-color: rgba(255,255,255,.25);
+		}
+		.masthead-nav > .active > a,
+		.masthead-nav > .active > a:hover,
+		.masthead-nav > .active > a:focus {
+		  color: #fff;
+		  border-bottom-color: #fff;
+		}
+
+		@media (min-width: 768px) {
+		  .masthead-brand {
+		    float: left;
+		  }
+		  .masthead-nav {
+		    float: right;
+		  }
+		}
+    </style>
+
+	<body ng-app="gymTrack">
+
+    	<div class="container">
+            <div class="row">
+              <div class="col-xs-12 col-lg-8">
+                <h1 id="logo-title">GymTrack</h1>
+                <img id="gym-icon" src="http://goldsgymmeridian.com/images/weight-gym.png" />
+              </div>
+              <div class="col-xs-6 col-lg-4 col-sm-4">
+                <div class="masthead clearfix">
+                  <div class="inner">
+                    <h3 class="masthead-brand"></h3>
+                    <ul class="nav masthead-nav">
+                      <li class="active"><a href="#">Início</a></li>
+                      <li><a href="#">Funcionalidades</a></li>
+                      <li><a href="#">Contato</a></li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div id="registration-forms" ng-controller="registrationController">
+                  <div id="login-form" ng-show="!register">
+                    <h4>Login</h4>
+                    <hr>
+                    <input ng-model="usernameLogin" type="text" placeholder="Usuário" /><br>
+                    <input ng-model="passwordLogin" type="password" placeholder="Senha" /><br>
+                    <button class="btn btn-default" ng-click="checkUserCredentials()">Entrar</button>
+                    <a ng-click="register = !register">-> Clique aqui para se cadastrar</a>
+                  </div>
+
+                  <div id="registration-form" ng-show="register">
+                  	<h4>Cadastro</h4>
+                    <hr>
+                    <input ng-model="usernameRegistration" type="text" placeholder="Usuário" /><br>
+                    <input ng-model="passwordRegistration" type="password" placeholder="Senha" /><br>
+                    <button class="btn btn-default" ng-click="registerUser()">Registrar</button>
+                    <a ng-click="register = !register">-> Voltar para o login</a>
+                  </div>
+
+                </div>  
+              </div>
+            </div>
+          </div>
+
+          <!--<div class="mastfoot">
+            <div class="inner">
+              <p>© GymTrack 2014, by <a href="https://github.com/larissaleite">larissaleite</a>.</p>
+            </div>
+          </div>-->
+  
+	</body>
+</html>
