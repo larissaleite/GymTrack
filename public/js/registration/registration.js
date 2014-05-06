@@ -1,5 +1,11 @@
 var app = angular.module('gymTrack', []);
 
+app.config(['$httpProvider', function($httpProvider) {
+        $httpProvider.defaults.useXDomain = true;
+        delete $httpProvider.defaults.headers.common['X-Requested-With'];
+    }
+]);
+
 app.factory('registrationService', function ($rootScope, $http) {
 
     return {
@@ -7,7 +13,18 @@ app.factory('registrationService', function ($rootScope, $http) {
         create: function (username, password) {
         	console.log("Registering "+ username + " - " + password);
 
-           //return $http.post('/register', username, password);
+          var data = {
+                'username': username,
+                'password': password
+                
+            };
+
+            console.log("Data " + data);
+    
+            return $http.post('/register', data)
+            .success(function(data) {
+                console.log(data);
+            });
         },
 
         delete: function(username) {

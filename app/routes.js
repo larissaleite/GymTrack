@@ -1,4 +1,5 @@
 var Treinos = require('./models/treinos');
+var User = require('./models/usuario')
 
 module.exports = function(app) {
 
@@ -63,7 +64,15 @@ module.exports = function(app) {
 	// registration submission
 	app.post('/register', function(req, res) {
 		console.log("Registration -- Username "+req.body.username+ " Password "+ req.body.password);
-	});
+		
+		/* still needs testing */
+		User.create({
+			username : req.body.username,
+			password : req.body.password
+		}, function(err, treino) {
+			if (err)
+				res.send(err);
+		});
 
 	// login submission
 	app.post('', function(req, res) {
