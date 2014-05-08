@@ -64,19 +64,25 @@ module.exports = function(app) {
 	// registration submission
 	app.post('/register', function(req, res) {
 		console.log("Registration -- Username "+req.body.username+ " Password "+ req.body.password);
-		
-		/* still needs testing */
+		res.send("User registered");
+		/* still needs testing 
 		User.create({
 			username : req.body.username,
 			password : req.body.password
 		}, function(err, treino) {
 			if (err)
 				res.send(err);
-		});
+		});*/
+	});
 
 	// login submission
 	app.post('', function(req, res) {
 
+	});
+
+	app.get('/home', function(req, res) {
+		/*check if user is authenticated */
+		res.sendfile('./public/home.html');
 	});
 
 	// application -------------------------------------------------------------
