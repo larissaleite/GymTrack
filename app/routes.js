@@ -62,7 +62,7 @@ module.exports = function(app) {
 	});
 
 	// registration submission
-	app.post('/register', function(req, res) {
+	app.post('/registrar', function(req, res) {
 		console.log("Registration -- Username "+req.body.username+ " Password "+ req.body.password);
 		res.send("User registered");
 		/* still needs testing 
@@ -80,9 +80,13 @@ module.exports = function(app) {
 
 	});
 
-	app.get('/home', function(req, res) {
+	app.get('/inicio', function(req, res) {
 		/*check if user is authenticated */
 		res.sendfile('./public/home.html');
+	});
+
+	app.get('/registrar/treino'), function(req, res) {
+		res.sendFile('.public/registrarTreino.html')
 	});
 
 	// application -------------------------------------------------------------

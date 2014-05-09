@@ -21,7 +21,7 @@ app.factory('registrationService', function ($rootScope, $http) {
 
             console.log("Data " + data);
     
-            return $http.post('/register', data)
+            return $http.post('/registrar', data)
             .success(function(data) {
                 console.log(data);
             });
