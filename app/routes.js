@@ -65,7 +65,7 @@ module.exports = function(app) {
 	app.post('/registrar', function(req, res) {
 		console.log("Registration -- Username "+req.body.username+ " Password "+ req.body.password);
 		res.send("User registered");
-		/* still needs testing 
+		/* still needs testing
 		User.create({
 			username : req.body.username,
 			password : req.body.password
@@ -85,8 +85,8 @@ module.exports = function(app) {
 		res.sendfile('./public/home.html');
 	});
 
-	app.get('/registrar/treino'), function(req, res) {
-		res.sendFile('.public/registrarTreino.html')
+	app.get('/registrar/treino', function(req, res) {
+		res.sendFile('./public/registrarTreino.html')
 	});
 
 	// application -------------------------------------------------------------
