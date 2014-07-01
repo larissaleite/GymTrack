@@ -77,7 +77,7 @@ module.exports = function(app) {
 	app.get('/inicio', function(req, res) {
 		/*check if user is authenticated */
 		if (req.session.logged)
-			res.sendfile('./public/home.html');
+			res.sendfile('./public/treino.html');
 		else
 			res.sendfile('./public/index.html');
 	});

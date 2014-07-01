@@ -18,99 +18,14 @@
 
     <link href='http://fonts.googleapis.com/css?family=Crete+Round' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Arvo' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css">
+		<link href='css/treino.css' rel='stylesheet' type='text/css'>
 
     <!-- AngularJS -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.0rc3/angular-resource.js"></script>
 
-    <script src="js/home/home.js"></script>
-
-
-    <style type="text/css">
-      body {
-        background-color: #06266f;
-        font-family: 'Arvo', serif;
-      }
-
-      #logo-title {
-        margin-top: 5rem;
-        margin-left: 20rem;
-        color: #4671d5;
-        font-family: 'Crete Round', serif;
-      }
-
-      ::-webkit-input-placeholder {
-        color: #4671d5;
-      }
-
-      ::-moz-placeholder {
-        color: #4671d5;
-      }
-
-      :-moz-placeholder {
-        color: #4671d5;
-      }
-
-	.masthead {
-		  margin-top:5rem;
-		  margin-right: 4rem;
-		}
-
-		.masthead-brand {
-		  margin-top: 10px;
-		  margin-bottom: 10px;
-		}
-
-		.masthead-nav > li {
-		  display: inline-block;
-
-		}
-		.masthead-nav > li + li {
-		  margin-left: 20px;
-		}
-		.masthead-nav > li > a {
-		  padding-right: 0;
-		  padding-left: 0;
-		  font-size: 16px;
-		  color: #fff; /* IE8 proofing */
-		  color: rgba(255,255,255,.75);
-		  border-bottom: 2px solid transparent;
-		}
-		.masthead-nav > li > a:hover,
-		.masthead-nav > li > a:focus {
-		  background-color: transparent;
-		  border-bottom-color: rgba(255,255,255,.25);
-		}
-		.masthead-nav > .active > a,
-		.masthead-nav > .active > a:hover,
-		.masthead-nav > .active > a:focus {
-		  color: #fff;
-		  border-bottom-color: #fff;
-		}
-
-		@media (min-width: 768px) {
-		  .masthead-brand {
-		    float: left;
-		  }
-		  .masthead-nav {
-		    float: right;
-		  }
-		}
-
-    .conteudo {
-      color: #fff;
-      margin-top: 15rem;
-    }
-
-    .conteudo > h3 {
-      font-weight: 200;
-    }
-
-    .registrar-treino {
-      width: 15rem;
-      margin: 5rem 15rem;
-    }
-    </style>
+    <script src="js/treino/treino.js"></script>
 
 	<body ng-app="treinos">
 
@@ -152,8 +67,25 @@
 									        <h4 class="modal-title">Treino</h4>
 									      </div>
 									      <div class="modal-body">
-									        <p>One fine body&hellip;</p>
-									      </div>
+													<div class="right-inner-addon">
+														<i class="icon-calendar"></i><input type="text" ng-model="date" placeholder="Date" class="form-control"/>
+													</div>
+													<br>
+													<select class="form-control">
+														<option>Leg</option>
+														<option>Upper body</option>
+														<option>Aerobic</option>
+													</select>
+													<br>
+													<p>Exercises</p>
+													<div ng-repeat="exercise in exercises">
+														<div>
+												    		{{exercise.name}}
+												    		<div ng-repeat="serie in exercise.series">{{serie.sets}}x{{serie.repetitions}} - {{serie.weight}}kg</div>
+												    	</div>
+														</div>
+														<button class="btn-add" data-toggle="modal" data-target="#exercicio"><i class="icon-plus-sign"></i> Add Exercise</button>
+												</div>
 									      <div class="modal-footer">
 									        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
 									        <button type="button" class="btn btn-primary" ng-click="registrarTreino()">Salvar</button>
@@ -161,6 +93,35 @@
 									    </div><!-- /.modal-content -->
 									  </div><!-- /.modal-dialog -->
 									</div><!-- /.modal -->
+
+									<div class="modal fade" id="exercicio">
+								  <div class="modal-dialog">
+								    <div class="modal-content">
+								      <div class="modal-header">
+								        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+								        <h4 class="modal-title">Exercise</h4>
+								      </div>
+								      <div class="modal-body">
+								        <input type="text" ng-model="exercise" class="form-control" placeholder="Name" /><br>
+								        <div class="series-list" ng-repeat="serie in series">
+								        	{{serie.sets}}x{{serie.repetitions}} - {{serie.weight}}kg <i class="icon-remove"></i>
+								      	</div>
+								        <div class="series" ng-show="serie">
+								        	<input type="text" ng-model="sets" class="form-control" placeholder="Sets" />
+								        	<input type="text" ng-model="repetitions" class="form-control" placeholder="Repetitions" />
+								        	<input type="text" ng-model="weight" class="form-control" placeholder="Weight (kg)"/>
+								        	<a href=""><i class="icon-ok" ng-click="serie = !serie; saveSerie()"></i></a><a href=""><i class="icon-remove" ng-click="serie = !serie;"></i></a>
+
+								        </div>
+								        <button class="btn-add" ng-show="!serie" ng-click="serie = !serie"><i class="icon-plus-sign"></i> Add Series</button>
+								      </div>
+								      <div class="modal-footer">
+								        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+								        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="saveExercise()" ng-disabled="serie">Done</button>
+								      </div>
+								    </div><!-- /.modal-content -->
+								  </div><!-- /.modal-dialog -->
+								</div><!-- /.modal -->
 
 								</div>
               </div>
