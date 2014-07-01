@@ -1,92 +1,90 @@
 var Treinos = require('./models/treinos');
-var User = require('./models/usuario')
+var User = require('./models/usuario');
+
+var session = require('express-session');
 
 module.exports = function(app) {
 
-	// api ---------------------------------------------------------------------
-	// get all todos
-	/*app.get('/treinos', function(req, res) {
+	app.use(session({ secret: 'appsecret', saveUninitialized: true, resave: true }));
 
-		// use mongoose to get all todos in the database
-		Treinos.find(function(err, treinos) {
+	app.route('/login')
+	/*.all(function(req, res, next) {
+  // runs for all HTTP verbs first
+  // think of it as route specific middleware!
+		console.log("entrei no all");
+	})*/
+	.get(function(req, res, next) {
+		console.log("Get - /login");
+	})
+	.post(function(req, res, next) {
+		console.log("POST - /login");
+		console.log("req --- "+req);
+  	console.log("Login -- Username "+req.body.username+ " Password "+ req.body.password);
+			//var user = new User({
+				//	username : req.body.username,
+					//password : req.body.password
+			//});
 
-			// if there is an error retrieving, send the error. nothing after res.send(err) will execute
-			if (err)
-				res.send(err)
-
-			res.json(treinos); // return all todos in JSON format
-		});
-	});
-
-	// create todo and send back all todos after creation
-	app.post('/treinos', function(req, res) {
-
-		// create a todo, information comes from AJAX request from Angular
-		Treinos.create({
-			text : req.body.text,
-			done : false
-		}, function(err, treino) {
-			if (err)
-				res.send(err);
-
-			// get and return all the todos after you create another
-			Treinos.find(function(err, treinos) {
-				if (err)
-					res.send(err)
-				res.json(treinos);
+			User.find({ username : req.body.username, password : req.body.password }, function(err, users) {
+				if (err) {
+					req.session.logged = false;
+					res.send(err);
+				}
+				if (!users.length) {
+					req.session.logged = false;
+					console.log("nao encontrou usuario");
+				} else {
+					console.log("usuario encontrado ");
+					users.forEach(function (user) {
+						console.log(user.username);
+					});
+					req.session.logged = true;
+					res.send('/inicio');
+				}
 			});
-		});
-
 	});
 
-	// delete a todo
-	app.delete('/treinos/:treino_id', function(req, res) {
-		Treinos.remove({
-			_id : req.params.treino_id
-		}, function(err, treino) {
-			if (err)
-				res.send(err);
-
-			// get and return all the todos after you create another
-			Treinos.find(function(err, treinos) {
-				if (err)
-					res.send(err)
-				res.json(treinos);
-			});
-		});
-	});*/
-
-	// authentication ---------------------------------------------
-	app.get('', function(req, res) {
-
-	});
-
-	// registration submission
-	app.post('/registrar', function(req, res) {
+	app.route('/registrar')
+	/*.all(function(req, res, next) {
+	// runs for all HTTP verbs first
+	// think of it as route specific middleware!
+		console.log("entrei no all");
+	})*/
+	.get(function(req, res, next) {
+		console.log("Get - /registrar");
+	})
+	.post(function(req, res, next) {
+		console.log("POST - /registrar");
 		console.log("Registration -- Username "+req.body.username+ " Password "+ req.body.password);
-		res.send("User registered");
-		/* still needs testing
-		User.create({
+
+		var user = new User({
 			username : req.body.username,
 			password : req.body.password
-		}, function(err, treino) {
+		});
+
+		user.save(function(err) {
 			if (err)
 				res.send(err);
-		});*/
+
+			res.send("Registered successfully");
+		});
 	});
 
-	// login submission
-	app.post('', function(req, res) {
+	app.post('/treino', function(req, res) {
 
 	});
 
 	app.get('/inicio', function(req, res) {
 		/*check if user is authenticated */
-		res.sendfile('./public/home.html');
+		if (req.session.logged)
+			res.sendfile('./public/home.html');
+		else
+			res.sendfile('./public/index.html');
 	});
 
-	app.get('/registrar/treino', function(req, res) {
-		res.sendFile('./public/registrarTreino.html')
+	app.get('/logout', function(req, res) {
+		req.session.logged = false;
+		res.sendfile('./public/index.html');
 	});
 
 	// application -------------------------------------------------------------

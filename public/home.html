@@ -10,18 +10,20 @@
 
     <title>GymTrack</title>
 
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
     <!-- Bootstrap core CSS -->
     <link href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 
     <link href='http://fonts.googleapis.com/css?family=Crete+Round' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Arvo' rel='stylesheet' type='text/css'>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <!-- AngularJS -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.0rc3/angular-resource.js"></script>
 
-    <script src="js/registration/registration.js"></script>
+    <script src="js/home/home.js"></script>
 
 
     <style type="text/css">
@@ -110,7 +112,7 @@
     }
     </style>
 
-	<body ng-app="gymTrack">
+	<body ng-app="treinos">
 
     	<div class="container">
             <div class="row">
@@ -125,7 +127,7 @@
                       <li class="active"><a href="#">Início</a></li>
                       <li><a href="#">Perfil</a></li>
                       <li><a href="#">Treinos</a></li>
-                      <li><a href="#">Logout</a></li>
+                      <li><a href="/logout">Logout</a></li>
                     </ul>
                   </div>
                 </div>
@@ -138,10 +140,29 @@
               </div>
 
               <div class="col-xs-12 col-lg-6">
-                <div class="conteudo">
+                <div class="conteudo" ng-controller="treinosController">
                   <h3>Você ainda não registrou nenhum treino</h3>
-                  <button class="btn btn-default registrar-treino">Registrar</button>
-                </div>
+                  <button class="btn btn-default registrar-treino" data-toggle="modal" data-target="#cadastroTreino">Registrar</button>
+
+									<div class="modal fade" id="cadastroTreino">
+									  <div class="modal-dialog">
+									    <div class="modal-content">
+									      <div class="modal-header">
+									        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+									        <h4 class="modal-title">Treino</h4>
+									      </div>
+									      <div class="modal-body">
+									        <p>One fine body&hellip;</p>
+									      </div>
+									      <div class="modal-footer">
+									        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+									        <button type="button" class="btn btn-primary" ng-click="registrarTreino()">Salvar</button>
+									      </div>
+									    </div><!-- /.modal-content -->
+									  </div><!-- /.modal-dialog -->
+									</div><!-- /.modal -->
+
+								</div>
               </div>
 
               <div class="col-xs-6 col-lg-3">
@@ -157,6 +178,6 @@
               <p>© GymTrack 2014, by <a href="https://github.com/larissaleite">larissaleite</a>.</p>
             </div>
           </div>-->
-  
+
 	</body>
 </html>

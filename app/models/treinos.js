@@ -13,6 +13,6 @@ var treinosSchema = new mongoose.Schema({
 	}
 });
 
-var treinosModel = mongoose.model('Treinos', treinosSchema);
+var Treinos = mongoose.model('Treinos', treinosSchema);
 
-module.exports = treinosModel;
+module.exports = Treinos;
