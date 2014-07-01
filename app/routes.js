@@ -1,4 +1,4 @@
-var Treinos = require('./models/treinos');
+var Treino = require('./models/treinos');
 var User = require('./models/usuario');
 
 var session = require('express-session');
@@ -70,7 +70,39 @@ module.exports = function(app) {
 		});
 	});
 
-	app.post('/treino', function(req, res) {
+	app.route('/treino')
+	.get(function(req, res, next) {
+		//findAll
+		Treino.find({}, function(err, treinos) {
+			if (err) {
+				res.send(err);
+			}
+			if (!treinos.length) {
+				console.log("nao encontrou treinos");
+			} else {
+				console.log("treinos encontrados ");
+				treinos.forEach(function (treino) {
+					console.log(JSON.stringify(treino));
+				});
+				res.send('/treino');
+			}
+		});
+	})
+	.post(function(req, res, next) {
+		console.log("TREINO "+JSON.stringify(req.body));
+		console.log("Data "+req.body.data);
+		var treino = new Treino({
+			data : req.body.data,
+			tipo : "Leg",
+			exercicios : req.body.exercicios
+		});
+
+		treino.save(function(err) {
+			if (err)
+				res.send(err);
+
+				res.send("Saved successfully");
+		});
 
 	});
 

@@ -68,7 +68,7 @@
 									      </div>
 									      <div class="modal-body">
 													<div class="right-inner-addon">
-														<i class="icon-calendar"></i><input type="text" ng-model="date" placeholder="Date" class="form-control"/>
+														<i class="icon-calendar"></i><input type="text" ng-model="data" placeholder="Date" class="form-control"/>
 													</div>
 													<br>
 													<select class="form-control">
@@ -78,17 +78,17 @@
 													</select>
 													<br>
 													<p>Exercises</p>
-													<div ng-repeat="exercise in exercises">
+													<div ng-repeat="exercicio in exercicios">
 														<div>
-												    		{{exercise.name}}
-												    		<div ng-repeat="serie in exercise.series">{{serie.sets}}x{{serie.repetitions}} - {{serie.weight}}kg</div>
+												    		{{exercicio.nome}}
+												    		<div ng-repeat="serie in exercicio.series">{{serie.quantidade}}x{{serie.repeticoes}} - {{serie.carga}}kg</div>
 												    	</div>
 														</div>
 														<button class="btn-add" data-toggle="modal" data-target="#exercicio"><i class="icon-plus-sign"></i> Add Exercise</button>
 												</div>
 									      <div class="modal-footer">
 									        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-									        <button type="button" class="btn btn-primary" ng-click="registrarTreino()">Salvar</button>
+									        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="registrarTreino()">Salvar</button>
 									      </div>
 									    </div><!-- /.modal-content -->
 									  </div><!-- /.modal-dialog -->
@@ -102,22 +102,22 @@
 								        <h4 class="modal-title">Exercise</h4>
 								      </div>
 								      <div class="modal-body">
-								        <input type="text" ng-model="exercise" class="form-control" placeholder="Name" /><br>
+								        <input type="text" ng-model="exercicio" class="form-control" placeholder="Nome" /><br>
 								        <div class="series-list" ng-repeat="serie in series">
-								        	{{serie.sets}}x{{serie.repetitions}} - {{serie.weight}}kg <i class="icon-remove"></i>
+								        	{{serie.quantidade}}x{{serie.repeticoes}} - {{serie.carga}}kg <i class="icon-remove"></i>
 								      	</div>
 								        <div class="series" ng-show="serie">
-								        	<input type="text" ng-model="sets" class="form-control" placeholder="Sets" />
-								        	<input type="text" ng-model="repetitions" class="form-control" placeholder="Repetitions" />
-								        	<input type="text" ng-model="weight" class="form-control" placeholder="Weight (kg)"/>
-								        	<a href=""><i class="icon-ok" ng-click="serie = !serie; saveSerie()"></i></a><a href=""><i class="icon-remove" ng-click="serie = !serie;"></i></a>
+								        	<input type="text" ng-model="quantidade" class="form-control" placeholder="Quantidade" />
+								        	<input type="text" ng-model="repeticoes" class="form-control" placeholder="Repeticoes" />
+								        	<input type="text" ng-model="carga" class="form-control" placeholder="Carga (kg)"/>
+								        	<a href=""><i class="icon-ok" ng-click="serie = !serie; salvarSerie()"></i></a><a href=""><i class="icon-remove" ng-click="serie = !serie;"></i></a>
 
 								        </div>
 								        <button class="btn-add" ng-show="!serie" ng-click="serie = !serie"><i class="icon-plus-sign"></i> Add Series</button>
 								      </div>
 								      <div class="modal-footer">
 								        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-								        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="saveExercise()" ng-disabled="serie">Done</button>
+								        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="salvarExercicio()" ng-disabled="serie">Done</button>
 								      </div>
 								    </div><!-- /.modal-content -->
 								  </div><!-- /.modal-dialog -->

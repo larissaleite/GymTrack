@@ -3,16 +3,16 @@ var mongoose = require('mongoose');
 var treinosSchema = new mongoose.Schema({
 	data : Date,
 	tipo : String,
-	exercicios : {
+	exercicios : [{
 		nome : String,
-		series : {
+		series : [{
 			carga : Number,
 			repeticoes : Number,
 			quantidade : Number
-		}
-	}
+		}]
+	}]
 });
 
-var Treinos = mongoose.model('Treinos', treinosSchema);
+var Treino = mongoose.model('Treino', treinosSchema);
 
-module.exports = Treinos;
+module.exports = Treino;
